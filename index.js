@@ -10,17 +10,19 @@ const cliente2 = new Cliente(); // tanto cliente1 quanto cliente2 a partir daqui
 cliente2.nome = "Alice";
 cliente2.cpf = 88822233309;
 
-const contaCorrenteRicardo = new ContaCorrente();
+const contaCorrenteRicardo = new ContaCorrente(); //new contacorrente devolve uma referencia ao lugar da memoria onde é possivel encontrar e manipular as informações do objeto criado
 contaCorrenteRicardo.agencia = 1001;
 contaCorrenteRicardo.cliente = cliente1;
 contaCorrenteRicardo.depositar(500);
 
 const conta2 = new ContaCorrente();
-conta2.cliente = cliente2;
+conta2.cliente = new Cliente(); //se não for criado o objeto cliente para conta2, ao tentar imprimi-la o código retorna "undefined"
+//se o valor de um atributo de objeto for "null" o computador deixa o espaço de memoria da variável como vazio
+conta2.cliente = cliente1;
 conta2.agencia = 102;
 
 let valor = 200; //tipo primitivos quando passados por parametro dentro de um método, o que acontece é que o valor da variavel é copiado para dentro do metodo, e dentro do método como se está trabalhando com uma copia da variavel qualquer alteração realizada dentro do método não é refletida na variavel de escopo global
-contaCorrenteRicardo.transferir(valor, conta2);
 
-console.log("valor: ", valor)
-console.log(conta2);
+conta2.saldo = 30000; //gera erro porque a propriedade saldo só tem o getter "que permite acesso para leitura", não possuindo setter "que permite atribuição/modificação"
+contaCorrenteRicardo.transferir(valor, conta2);
+console.log(conta2.saldo);
