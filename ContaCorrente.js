@@ -2,10 +2,6 @@ import { Cliente } from "./Cliente.js";
 
 export class ContaCorrente {
     static numeroDeContas = 0;
-    agencia;
-
-    _cliente;
-    _saldo = 0; 
    
     set cliente(novoValor){ //proteção para que quanto alguem for atribuir um valor fora da classe, atribuí-lo corretamente
         if(novoValor instanceof Cliente){ //verifica se novoValor é uma nova instancia da classe Cliente "se não for, ele não irá atribuir o valor ao objeto"
@@ -25,6 +21,7 @@ export class ContaCorrente {
     constructor(cliente, agencia){
         this.agencia = agencia;
         this.cliente = cliente; //nesta linha foi utilizado o acessor cliente para que as validações deles sejam aplicáveis aqui
+        this._saldo = 0;
         ContaCorrente.numeroDeContas += 1; //atribui o valor do numeroDeContas "que é um atributo estatico" baseado na conta corrente como um todo ao invés de em um instancia unica dela
     }
 
