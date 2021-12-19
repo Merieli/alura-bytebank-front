@@ -1,32 +1,37 @@
 import { Cliente } from "./Cliente.js";
 
 export class ContaCorrente {
+    static numeroDeContas = 0;
     agencia;
 
     _cliente;
+    _saldo = 0; 
    
-    set cliente(novoValor){ //proteção para que quanto alguem for atribuir um valor, atribuí-lo corretamente
+    set cliente(novoValor){ //proteção para que quanto alguem for atribuir um valor fora da classe, atribuí-lo corretamente
         if(novoValor instanceof Cliente){ //verifica se novoValor é uma nova instancia da classe Cliente "se não for, ele não irá atribuir o valor ao objeto"
             this._cliente = novoValor;
         
         }
     }
-    //Para acessar um método set definido não é preciso usar "()" como em uma função, porque ele é uma propriedade especial e pode ser chamado com igualdade
 
-    get cliente(){ //acessor que permite mostrar o valor de um atributo privado
+    get cliente(){
         return this._cliente;
-    } 
+    }    
 
-    _saldo = 0; //pra proteger o atributo para que ninguem mais fora da classe possa alterar o atributo deve ser escrito com um "#" na frente da variavel, mas esse método ainda não está aprovado, então no lugar dele se utiliza o "_"
-
-    get saldo(){ //o acessor sempre é público por isso não tem _ ou # na frente do seu nome
+    get saldo(){
         return this._saldo
+    }
+
+    constructor(cliente, agencia){
+        this.agencia = agencia;
+        this.cliente = cliente; //nesta linha foi utilizado o acessor cliente para que as validações deles sejam aplicáveis aqui
+        ContaCorrente.numeroDeContas += 1; //atribui o valor do numeroDeContas "que é um atributo estatico" baseado na conta corrente como um todo ao invés de em um instancia unica dela
     }
 
     sacar(valor){
         if(this._saldo >= valor){ //pega o saldo "desta" conta corrente, a que no momento estiver sendo manipulada
             this._saldo -= valor;
-            return valor; //se dentro de um método não houver um return definido ele sempre será mostrado com "undefined" quando buscado ser valor
+            return valor; //se dentro de um método não houver um return definido ele sempre será mostrado com "undefined" quando buscado seu valor
         } else{
             console.log("Saldo insuficiente!")
         }

@@ -1,6 +1,13 @@
-export class Cliente { //nome de uma classe começa com letra maiuscula, e o que estiver dentro de chaves define o que a classe possui, sendo as variáveis seus campos/atributos
+export class Cliente {
     nome;
-    cpf;
-}
+    _cpf;
 
-//export experta  a definição da classe cliente
+    get cpf(){
+        return this._cpf;
+    }
+
+    constructor(nome, cpf){ // função especial que permite criar o cpf somente uma unica vez
+        this.nome = nome;
+        this._cpf = cpf;// dessa forma é passada a referencia necessário para o cpf, mas sem passar atributos ou acessores para modificação
+    }
+}
