@@ -1,9 +1,15 @@
 //Conta base
+//Classe abstrata - que é pensada para não ser instanciada diretamente, por isso não pode ser instanciada e só funciona para ser herdada
 export class Conta{
     constructor(saldoInicial, cliente, agencia){ //propriedade de instancias devem ser definidas dentro de métodos/construtores da classe
+        //Para proteger a classe Conta, fazendo com que nenhum usuário consiga instanciar uma nova conta a partir dela tendo que usar ou ContaCorrente ou ContaPoupanca para isso:
+        if(this.constructor == Conta){
+            throw new Error("Você não deveria instanciar um objeto do tipo Conta Diretamente, pois essa é uma Classe Abstrata"); //lançando um novo erro no código
+        }
         this._saldo = saldoInicial;
         this._cliente = cliente;
         this._agencia = agencia; //é uma boa prática sempre inicializar esses atributos com algum valor, e no caso esta sendo utilizado o valor passado por parametro paraa classe
+
     }
    
     set cliente(novoValor){ //proteção para que quanto alguem for atribuir um valor fora da classe, atribuí-lo corretamente
@@ -22,8 +28,8 @@ export class Conta{
     }
 
     sacar(valor){
-        let taxa = 1;
-        return this._sacar(valor, taxa); //executa o método privado e retorna o valor dele
+        //método vazio porque o comportamento dele será diferente em cada tipo de conta
+        throw new Error("O método Sacar da Conta é abstrato");
     } //método que é uma função para realizar determinada ação representando uma operação
 
     _sacar(valor, taxa){ //método privado
